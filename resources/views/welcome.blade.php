@@ -20,8 +20,8 @@
                 <a class="btn btn-primary bg-transparent text-primary border-0 m-auto mt-4 fs-5">Register</a>
             </div>
         </div>
-        <div class="right">
-
+        <div class="right w-50 text-end">
+            <img class="img-fluid w-75" src="{{ Vite::asset('resources/images/ilustLanding.jpg') }}" alt="">
         </div>
     </div>
     <div class="container-sm bg-light mt-5">

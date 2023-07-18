@@ -2,7 +2,7 @@
     $currentRouteName = Route::currentRouteName();
 @endphp
 
-@vite(['resources/sass/sidebar.scss', 'resources/js/app.js'])
+@vite(['resources/sass/sidebar.scss', 'resources/js/sidebar.js'])
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
 

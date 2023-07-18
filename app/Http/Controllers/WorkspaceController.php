@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +21,6 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
 
         $availabe = DB::table('members')->select('members.*')->where('members.user_id','=', $sessionId)->get();
-
-
 
 
         // $workspace = Member::all();
@@ -62,6 +61,7 @@ class WorkspaceController extends Controller
         $member = New Member;
         $member->workspace_id = $workspace->id;
         $member->user_id = $sessionId;
+        $member->level = '1';
         $member->save();
 
 
@@ -82,7 +82,10 @@ class WorkspaceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sessionId = auth()->user()->id;
+        $workspace = Workspace::find($id);
+
+        return view('workspaces.edit', compact('workspace','sessionId'));
     }
 
     /**
@@ -90,7 +93,22 @@ class WorkspaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $workspace = Workspace::find($id);
+        $workspace->user_id = $request->user_id;
+        $workspace->namaWorkspace = $request->workspaceName;
+        $workspace->deskWorkspace = $request->workspaceDesc;
+        $workspace->save();
+
+        $new = $request->newName;
+        $newMember = User::where('email','=',$new)->pluck('id')->first();
+
+        $member = New Member;
+        $member->workspace_id = $workspace->id;
+        $member->user_id = $newMember;
+        $member->level = '0';
+        $member->save();
+
+        return redirect()->route('workspaces.index');
     }
 
     /**
@@ -98,7 +116,19 @@ class WorkspaceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $sessionId = auth()->user()->id;
+
+        $level = Member::where('user_id','=',$sessionId)->pluck('level')->first();
+
+        $work = Workspace::find($id);
+
+        if ($level === "1" && $work){
+            $work->delete();
+        }else{
+            return redirect()->route('workspaces.index');
+        }
+
+        return redirect()->route('workspaces.index');
     }
 
 
@@ -134,8 +164,8 @@ class WorkspaceController extends Controller
         if ($request->ajax()){
             return datatables()->of($workspace)
                 ->addIndexColumn()
-                ->addColumn('actions', function($detail) {
-                    return view('workspaces.actions', compact('detail'));
+                ->addColumn('actions', function($workspace) {
+                    return view('workspaces.actions', compact('workspace'));
                 })
                 ->toJson();
         }
