@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/workspace', [WorkspaceController::class, 'index'])->name('workspace');
     Route::get('getWorkspaces', [WorkspaceController::class, 'getData'])->name('workspaces.getData');
+    Route::resource('workspaces',WorkspaceController::class);
 });
 
 // Tasks

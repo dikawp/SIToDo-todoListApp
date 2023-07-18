@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Stmt\Return_;
 use Yajra\DataTables\Facades\DataTables;
 
 class WorkspaceController extends Controller
@@ -19,7 +21,8 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
 
         $availabe = DB::table('members')->select('members.*')->where('members.user_id','=', $sessionId)->get();
-        
+
+
         // $workspace = Member::all();
         // $workspace = Member::find($sessionId);
 
@@ -35,7 +38,9 @@ class WorkspaceController extends Controller
      */
     public function create()
     {
-        //
+        $sessionId = auth()->user()->id;
+
+        return view('workspaces.createWorkspace',['user_id' => $sessionId]);
     }
 
     /**
@@ -43,7 +48,25 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $sessionId = auth()->user()->id;
+
+        $workspace = New Workspace;
+        $workspace->user_id = $request->user_id;
+        $workspace->namaWorkspace = $request->workspaceName;
+        $workspace->deskWorkspace = $request->workspaceDesc;
+        $workspace->save();
+
+
+        $member = New Member;
+        $member->workspace_id = $workspace->id;
+        $member->user_id = $sessionId;
+        $member->level = '1';
+        $member->save();
+
+
+
+        return redirect()->route('workspaces.index');
     }
 
     /**
@@ -59,7 +82,10 @@ class WorkspaceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sessionId = auth()->user()->id;
+        $workspace = Workspace::find($id);
+
+        return view('workspaces.edit', compact('workspace','sessionId'));
     }
 
     /**
@@ -67,7 +93,22 @@ class WorkspaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $workspace = Workspace::find($id);
+        $workspace->user_id = $request->user_id;
+        $workspace->namaWorkspace = $request->workspaceName;
+        $workspace->deskWorkspace = $request->workspaceDesc;
+        $workspace->save();
+
+        $new = $request->newName;
+        $newMember = User::where('email','=',$new)->pluck('id')->first();
+
+        $member = New Member;
+        $member->workspace_id = $workspace->id;
+        $member->user_id = $newMember;
+        $member->level = '0';
+        $member->save();
+
+        return redirect()->route('workspaces.index');
     }
 
     /**
@@ -75,26 +116,56 @@ class WorkspaceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $sessionId = auth()->user()->id;
+
+        $level = Member::where('user_id','=',$sessionId)->pluck('level')->first();
+
+        $work = Workspace::find($id);
+
+        if ($level === "1" && $work){
+            $work->delete();
+        }else{
+            return redirect()->route('workspaces.index');
+        }
+
+        return redirect()->route('workspaces.index');
     }
 
 
     public function getData(Request $request)
     {
         $sessionId = auth()->user()->id;
-        $workspace = Member::find($sessionId);
 
-        $detail = Workspace::find($workspace);
-
-
+        // NYOBA" CUY
+        // $workspace = Member::find($sessionId);
+        // $detail = Workspace::find($workspace);
         // $availabe = DB::table('members')->select('members.*')->where('members.user_id','=', $sessionId)->get();
 
+        // QUERY BUILDER
+        // $detail = DB::table('members')
+        // ->select('members.*')
+        // ->where('user_id','=',$sessionId)
+        // ->get()->pluck('workspace_id');
+
+        // ELOQUENT
+        $detail = Member::all()
+        ->where('user_id','=',$sessionId)
+        ->pluck('workspace_id');
+
+        // QUERY BUILDER
+        // $workspace = DB::table('workspaces')
+        // ->select('workspaces.*')
+        // ->whereIn('id', $detail)->get();
+
+        // ELOQUENT
+        $workspace = Workspace::all()
+        ->whereIn('id', $detail);
 
         if ($request->ajax()){
-            return datatables()->of($detail)
+            return datatables()->of($workspace)
                 ->addIndexColumn()
-                ->addColumn('actions', function($detail) {
-                    return view('workspaces.actions', compact('detail'));
+                ->addColumn('actions', function($workspace) {
+                    return view('workspaces.actions', compact('workspace'));
                 })
                 ->toJson();
         }

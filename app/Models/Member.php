@@ -9,7 +9,7 @@ class Member extends Model
 {
     use HasFactory;
 
-    public function members(){
+    public function workspaces(){
         return $this->belongsTo(Workspace::class);
     }
 }
