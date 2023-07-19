@@ -56,6 +56,8 @@
                 });
             });
         </script>
+
+        <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
     @endpush
 </body>
 </html>

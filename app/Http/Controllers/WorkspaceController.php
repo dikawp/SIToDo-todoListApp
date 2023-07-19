@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class WorkspaceController extends Controller
     {
         $sessionId = auth()->user()->id;
 
+
         return view('workspaces.createWorkspace',['user_id' => $sessionId]);
     }
 
@@ -74,7 +76,17 @@ class WorkspaceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // BUG ROUTE ACCESS (Bisa diakses oleh user non member melalui url)
+        $sessionId = auth()->user()->id;
+        $workspace = Workspace::find($id);
+
+        $member = Member::all()->where('workspace_id','=',$workspace->id)->pluck('user_id');
+
+        $usersName = User::all()->whereIn('id',$member);
+
+        $task = Task::all()->whereIn('workspace_id',$workspace->id);
+
+        return view('workspaces.detail', compact('workspace','sessionId','member','usersName','task'));
     }
 
     /**
@@ -169,5 +181,13 @@ class WorkspaceController extends Controller
                 })
                 ->toJson();
         }
+    }
+
+    public function createTask(string $id){
+
+        $sessionId = auth()->user()->id;
+        $workspace = Workspace::find($id);
+
+        return view('workspaces.workTasks.taskIndex', compact('workspace','sessionId'));
     }
 }

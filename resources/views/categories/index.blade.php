@@ -13,22 +13,18 @@
     @section('content')
     <div class="container-sm">
         <div class="d-flex justify-content-between align-items-center">
-            <h3 class="mt-3">Personal Task</h3>
+            <h3 class="mt-3">Category</h3>
             <div class="">
                 <a href="" class="btn btn-outline-primary px-5">Create</a>
             </div>
         </div>
         <div class="table-responsive border p-3 rounded-3 mb-3">
             {{-- {{ $available }} --}}
-            <a href="" class="btn btn-outline-primary">Create new Task</a>
+            <a href="" class="btn btn-outline-primary">Create new Category</a>
             <table class="table table-hover table-striped bg-white " id="workspaceTable">
                 <thead>
                     <tr>
-                        <th>Task</th>
-                        <th>Start Date</th>
-                        <th>Due Date</th>
                         <th>Category</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
             </table>

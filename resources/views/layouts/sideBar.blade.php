@@ -44,11 +44,19 @@
                 </a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link nav-link @if($currentRouteName == 'task') text-primary @endif" href="{{ route ('task') }}" aria-expanded="false">
+                <a class="sidebar-link nav-link @if($currentRouteName == 'persontask') text-primary @endif" href="{{ route ('persontask') }}" aria-expanded="false">
                   <span>
                     <i class="ti ti-alert-circle"></i>
                   </span>
                   <span class="hide-menu">Tasks</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link nav-link @if($currentRouteName == 'category') text-primary @endif" href="{{ route ('category') }}" aria-expanded="false">
+                  <span>
+                    <i class="bi bi-palette2"></i>
+                  </span>
+                  <span class="hide-menu">Category</span>
                 </a>
               </li>
             </ul>
@@ -59,7 +67,7 @@
       <!--  Main wrapper -->
       <div class="body-wrapper">
         <!--  Header Start -->
-        <header class="app-header">
+        <header class="app-header bg-light">
           <nav class="navbar navbar-expand-lg navbar-light">
             <ul class="navbar-nav">
               <li class="nav-item d-block d-xl-none">
@@ -84,11 +92,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{{ route('profile') }}" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-mail fs-6"></i>
                                 <p class="mb-0 fs-3">My Account</p>
                             </a>
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{{ route ('persontask') }}" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="mb-0 fs-3">My Task</p>
                             </a>

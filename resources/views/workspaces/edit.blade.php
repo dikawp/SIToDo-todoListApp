@@ -10,6 +10,7 @@
     @extends('layouts.sidebar')
     @section('content')
     <div class="container-sm">
+        <h3 class="mt-3">Edit Workspace</h3>
         <form action="{{ route('workspaces.update',[$workspace->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
