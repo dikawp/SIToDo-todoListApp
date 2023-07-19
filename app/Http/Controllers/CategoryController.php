@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
-use App\Models\Task;
-use App\Models\Workspace;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Integer;
 
-class TaskController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('workspaces.workTasks.taskIndex');
+        return view('categories.index');
     }
 
     /**
@@ -23,7 +19,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -31,17 +27,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $sessionId = auth()->user()->id;
-
-        $task = New Task;
-        $task->workspace_id = $request->workId;
-        $task->namaTask = $request->taskName;
-        $task->startDate = $request->startDate;
-        $task->dueDate = $request->dueDate;
-        $task->status = $request->status;
-        $task->save();
-
-        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
+        //
     }
 
     /**
@@ -49,11 +35,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        // $sessionId = auth()->user()->id;
-
-        $workspace = Workspace::find($id);
-
-        return view('workspaces.workTasks.taskIndex', ['workId' => $workspace->id]);
+        //
     }
 
     /**
@@ -61,7 +43,7 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-
+        //
     }
 
     /**

@@ -10,6 +10,6 @@ class Workspace extends Model
     use HasFactory;
 
     public function users(){
-        return $this->belongsTo(User::class)->hasMany(Members::class);
+        return $this->belongsTo(User::class)->hasMany(Members::class)->hasMany(Tasks::class);
     }
 }
