@@ -64,7 +64,12 @@ class personTaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sessionId = auth()->user()->id;
+        $category = Category::all()->where('user_id','=',$sessionId);
+
+        $task = personTask::find($id);
+
+        return view('tasks.editTask',compact('category','task'));
     }
 
     /**
@@ -72,7 +77,15 @@ class personTaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $task = personTask::find($id);
+        $task->namaTask = $request->taskName;
+        $task->startDate = $request->startDate;
+        $task->dueDate = $request->dueDate;
+        $task->status = $request->status;
+        $task->category_id = $request->category;
+        $task->save();
+
+        return redirect()->route('persontasks.index');
     }
 
     /**

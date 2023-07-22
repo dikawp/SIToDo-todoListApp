@@ -26,16 +26,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Dashboard
+// Profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::resource('profile',ProfileController::class);
 });
 
 // Dashboard
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
-
 
 // Workspaces
 Route::middleware(['auth'])->group(function () {

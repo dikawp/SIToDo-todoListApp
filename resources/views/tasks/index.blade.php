@@ -35,11 +35,15 @@
                         <td>{{ $tasks->namaTask }}</td>
                         <td>{{ $tasks->startDate }}</td>
                         <td>{{ $tasks->dueDate }}</td>
-                        <td>{{ $tasks->category->categoryName }}</td>
+                        @if ($tasks->category_id == null)
+                            <td></td>
+                        @else
+                            <td>{{ $tasks->category->categoryName }}</td>
+                        @endif
                         <td>{{ $tasks->status }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                <a href="{{ route('persontasks.edit',['persontask' => $tasks->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                 <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
