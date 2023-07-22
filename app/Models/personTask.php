@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class personTask extends Model
 {
     use HasFactory;
 
-    public function workspace(){
-        return $this->belongsTo(Workspace::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

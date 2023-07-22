@@ -61,7 +61,9 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
+        $workspace = Workspace::find($id);
 
+        return view('workspaces.workTasks.taskEdit', ['workId' => $workspace->id]);
     }
 
     /**

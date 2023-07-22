@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Member;
+use App\Models\Task;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        $sessionId = auth()->user()->id;
+
+        $category = Category::all()->whereIn('user_id', $sessionId);
+
+
+        return view('categories.index',['category'=>$category]);
     }
 
     /**
@@ -19,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.createCategory');
     }
 
     /**
@@ -27,7 +36,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sessionId = auth()->user()->id;
+
+        $category = New Category;
+        $category->user_id = $sessionId;
+        $category->categoryName = $request->category;
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -59,6 +75,10 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // $sessionId = auth()->user()->id;
+
+        Category::find($id)->delete();
+
+        return redirect()->route('categories.index');
     }
 }

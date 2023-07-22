@@ -26,16 +26,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Dashboard
+// Profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::resource('profile',ProfileController::class);
 });
 
 // Dashboard
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 });
-
 
 // Workspaces
 Route::middleware(['auth'])->group(function () {
@@ -53,9 +53,11 @@ Route::middleware(['auth'])->group(function () {
 //Category
 Route::middleware(['auth'])->group(function () {
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::resource('categories',CategoryController::class);
 });
 
 //Personal Task
 Route::middleware(['auth'])->group(function () {
     Route::get('/persontask', [personTaskController::class, 'index'])->name('persontask');
+    Route::resource('persontasks',personTaskController::class);
 });

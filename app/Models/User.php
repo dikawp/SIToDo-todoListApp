@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function workspaces(){
+    public function workspace(){
         return $this->hasMany(Workspace::class);
     }
 }
