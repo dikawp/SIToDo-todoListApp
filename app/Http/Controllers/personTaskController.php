@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\personTask;
 use Illuminate\Http\Request;
 
 class personTaskController extends Controller
@@ -11,7 +13,12 @@ class personTaskController extends Controller
      */
     public function index()
     {
-        return view('tasks.index');
+        $sessionId = auth()->user()->id;
+        $personTask = personTask::all()->where('user_id','=',$sessionId);
+
+        return view('tasks.index',[
+            'persontask'=>$personTask,
+        ]);
     }
 
     /**
@@ -19,7 +26,10 @@ class personTaskController extends Controller
      */
     public function create()
     {
-        //
+        $sessionId = auth()->user()->id;
+        $category = Category::all()->where('user_id','=',$sessionId);
+
+        return view('tasks.createTask',compact('category'));
     }
 
     /**
@@ -27,7 +37,18 @@ class personTaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sessionId = auth()->user()->id;
+
+        $personTasks = New personTask;
+        $personTasks->user_id = $sessionId;
+        $personTasks->namaTask	= $request->taskName;
+        $personTasks->startDate = $request->startDate;
+        $personTasks->dueDate = $request->dueDate;
+        $personTasks->status = $request->status;
+        $personTasks->category_id = $request->category;
+        $personTasks->save();
+
+        return redirect()->route('persontasks.index');
     }
 
     /**
@@ -59,6 +80,8 @@ class personTaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        personTask::find($id)->delete();
+
+        return redirect()->route('persontasks.index');
     }
 }

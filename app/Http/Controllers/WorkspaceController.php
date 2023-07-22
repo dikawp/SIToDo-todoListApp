@@ -183,11 +183,11 @@ class WorkspaceController extends Controller
         }
     }
 
-    public function createTask(string $id){
+    // public function createTask(string $id){
 
-        $sessionId = auth()->user()->id;
-        $workspace = Workspace::find($id);
+    //     $sessionId = auth()->user()->id;
+    //     $workspace = Workspace::find($id);
 
-        return view('workspaces.workTasks.taskIndex', compact('workspace','sessionId'));
-    }
+    //     return view('workspaces.workTasks.taskIndex', compact('workspace','sessionId'));
+    // }
 }

@@ -53,9 +53,11 @@ Route::middleware(['auth'])->group(function () {
 //Category
 Route::middleware(['auth'])->group(function () {
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
+    Route::resource('categories',CategoryController::class);
 });
 
 //Personal Task
 Route::middleware(['auth'])->group(function () {
     Route::get('/persontask', [personTaskController::class, 'index'])->name('persontask');
+    Route::resource('persontasks',personTaskController::class);
 });

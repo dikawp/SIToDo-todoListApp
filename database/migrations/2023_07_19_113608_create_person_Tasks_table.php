@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personalTasks', function (Blueprint $table) {
+        Schema::create('person_Tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('namaTask');
             $table->date('startDate')->nullable();
             $table->date('dueDate')->nullable();
-            $table->string('category')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->string('status')->nullable();
             $table->timestamps();
         });

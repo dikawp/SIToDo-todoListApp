@@ -12,21 +12,40 @@
 
     @section('content')
     <div class="container-sm">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3 class="mt-3">Category</h3>
-            <div class="">
-                <a href="" class="btn btn-outline-primary px-5">Create</a>
+        <h3 class="mt-3">Category</h3>
+
+        <div class="table-responsive border p-3 rounded-3 mb-3 mt-3">
+            <div class="text-end">
+                {{ $category }}
+                <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="" class="form-control" id="category" name="category" value="">
+                    <button type="submit" class="btn btn-primary my-2">Add New Category</button>
+                </form>
             </div>
-        </div>
-        <div class="table-responsive border p-3 rounded-3 mb-3">
-            {{-- {{ $available }} --}}
-            <a href="" class="btn btn-outline-primary">Create new Category</a>
             <table class="table table-hover table-striped bg-white " id="workspaceTable">
-                <thead>
+                <thead class="text-center">
                     <tr>
                         <th>Category</th>
+                        <th>#</th>
                     </tr>
                 </thead>
+                @foreach ( $category as $categories)
+                <tbody class="text-center">
+                    <tr>
+                        <td>{{ $categories->categoryName }}</td>
+                        <td>
+                            <form action="{{ route('categories.destroy', ['category' => $categories->id]) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-outline-dark btn-sm me-2 btn-delete">
+                                    <i class="bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                @endforeach
             </table>
             {{-- @if (count($available) == 0)
             @else
@@ -34,28 +53,5 @@
         </div>
     </div>
     @endsection
-    {{-- @push('scripts')
-        <script type="module">
-            $(document).ready(function() {
-                $("#workspaceTable").DataTable({
-                    serverSide: true,
-                    processing: true,
-                    ajax: "/getWorkspaces",
-                    columns: [
-                        { data: "namaWorkspace", name: "namaWorkspace" },
-                        { data: "deskWorkspace", name: "deskWorkspace" },
-                        { data: "actions", name: "actions", orderable: false, searchable: false }
-                    ],
-                    order: [[0, "desc"]],
-                    lengthMenu: [
-                        [10, 25, 50, 100, -1],
-                        [10, 25, 50, 100, "All"],
-                    ],
-                });
-            });
-        </script>
-
-        <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
-    @endpush --}}
 </body>
 </html>
