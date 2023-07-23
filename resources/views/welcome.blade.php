@@ -28,7 +28,7 @@
         </div>
 
         <div class="container-fluid">
-            <div class="grid text-center text-primary">
+            <div class="grid text-center text-primary py-5">
                 <div class="g-col-4">
                     <h1>Manage Your Task Just Got a Lot Easier</h1>
                 </div>
@@ -43,19 +43,19 @@
                         <img src="{{ Vite::asset('resources/images/img3.jpg') }}" class="img-fluid" alt="">
                     </div>
                     <div class="project-content-pl col-12 col-lg-6 d-flex flex-column justify-content-center">
-                        <h2 class="mb-4 mt-4 mt-lg-0">
-                            <strong>More Easy & More Efficient</strong>
+                        <h2 class="mb-4 mt-4 mt-lg-0 text-primary">
+                            More Easy & More Efficient
                         </h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam fugit vitae laborum aliquam, ducimus quod enim repellat accusantium mollitia? Ab facilis voluptate enim necessitatibus reiciendis impedit alias sit voluptatibus velit?</p>
+                        <h5>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam fugit vitae laborum aliquam, ducimus quod enim repellat accusantium mollitia? Ab facilis voluptate enim necessitatibus reiciendis impedit alias sit voluptatibus velit?</h5>
                     </div>
                 </div>
 
                 <div class="d-flex flex-column-reverse flex-lg-row py-5">
                     <div class="project-content-pr col-12 col-lg-6 d-flex flex-column justify-content-center">
-                        <h2 class="mb-4 mt-4 mt-lg-0">
-                            <strong>More Easy & More Efficient</strong>
+                        <h2 class="mb-4 mt-4 mt-lg-0 text-primary">
+                            More Easy & More Efficient
                         </h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                        <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</h5>
                     </div>
                     <div class="col-12 col-lg-6">
                         <img src="{{ Vite::asset('resources/images/img2.jpg') }}" class="img-fluid" alt="">
@@ -102,7 +102,7 @@
 
         <div class="container py-5">
             <div class="row g-4">
-                <h2 class="text-center mb-4 mb-md-5 fs-1">
+                <h2 class="text-center mb-4 mb-md-5 fs-1 text-primary">
                     <strong>Why Choose Us?</strong>
                 </h2>
 
@@ -142,19 +142,19 @@
             </div>
         </div>
 
-        <div class="grid text-center text-primary">
+        <div class="grid text-center text-primary py-5">
             <div class="g-col-5">
                 <h1>Start Organizing Your Work</h1>
                 <h1>With Us, Si ToDo</h1>
             </div>
         </div>
 
-        <div class="grid text-center text-primary">
+        <div class="grid text-center text-primary py-5">
             <button type="button" class="btn btn-primary btn-lg">Get Started</button>
         </div>
 
         <div class="container">
-            <footer class="py-3 my-4  justify-content-center border-top">
+            <footer class="py-3 my-5 justify-content-center border-top">
                 <div class="grid text-center text-primary">
                     <h1>SiToDo</h1>
                     <div class="g-col-4">
