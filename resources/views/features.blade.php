@@ -76,7 +76,7 @@
             <p class="text-center text-muted">@2023 SiToDo, All rights Reserved by kelompok2</p>
         </footer>
     </div>
- @endsection
+    @endsection
 
 </body>
 </html>
