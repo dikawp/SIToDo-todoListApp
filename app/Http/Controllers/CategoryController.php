@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Member;
 use App\Models\Task;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Integer;
 
-class TaskController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('workspaces.workTasks.taskIndex');
+        $sessionId = auth()->user()->id;
+
+        $category = Category::all()->whereIn('user_id', $sessionId);
+
+
+        return view('categories.index',['category'=>$category]);
     }
 
     /**
@@ -23,7 +28,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-
+        return view('categories.createCategory');
     }
 
     /**
@@ -33,15 +38,12 @@ class TaskController extends Controller
     {
         $sessionId = auth()->user()->id;
 
-        $task = New Task;
-        $task->workspace_id = $request->workId;
-        $task->namaTask = $request->taskName;
-        $task->startDate = $request->startDate;
-        $task->dueDate = $request->dueDate;
-        $task->status = $request->status;
-        $task->save();
+        $category = New Category;
+        $category->user_id = $sessionId;
+        $category->categoryName = $request->category;
+        $category->save();
 
-        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -49,11 +51,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        // $sessionId = auth()->user()->id;
-
-        $workspace = Workspace::find($id);
-
-        return view('workspaces.workTasks.taskIndex', ['workId' => $workspace->id]);
+        //
     }
 
     /**
@@ -61,9 +59,7 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $workspace = Workspace::find($id);
-
-        return view('workspaces.workTasks.taskEdit', ['workId' => $workspace->id]);
+        //
     }
 
     /**
@@ -79,6 +75,10 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // $sessionId = auth()->user()->id;
+
+        Category::find($id)->delete();
+
+        return redirect()->route('categories.index');
     }
 }

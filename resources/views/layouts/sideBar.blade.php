@@ -2,7 +2,7 @@
     $currentRouteName = Route::currentRouteName();
 @endphp
 
-@vite(['resources/sass/sidebar.scss', 'resources/js/app.js'])
+@vite(['resources/sass/sidebar.scss', 'resources/js/sidebar.js'])
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
 
@@ -44,11 +44,19 @@
                 </a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link nav-link @if($currentRouteName == 'task') text-primary @endif" href="{{ route ('task') }}" aria-expanded="false">
+                <a class="sidebar-link nav-link @if($currentRouteName == 'persontask') text-primary @endif" href="{{ route ('persontask') }}" aria-expanded="false">
                   <span>
                     <i class="ti ti-alert-circle"></i>
                   </span>
                   <span class="hide-menu">Tasks</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link nav-link @if($currentRouteName == 'category') text-primary @endif" href="{{ route ('category') }}" aria-expanded="false">
+                  <span>
+                    <i class="bi bi-palette2"></i>
+                  </span>
+                  <span class="hide-menu">Category</span>
                 </a>
               </li>
             </ul>
@@ -80,15 +88,15 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                            <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                            <img src="{{ asset('storage/files/'.auth()->user()->encrypted_filename) }}" alt="" width="35" height="35" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                <i class="ti ti-mail fs-6"></i>
+                            <a href="{{ route('profile.index') }}" class="d-flex align-items-center gap-2 dropdown-item">
+                                <i class="bi bi-person-circle"></i>
                                 <p class="mb-0 fs-3">My Account</p>
                             </a>
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{{ route ('persontask') }}" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="mb-0 fs-3">My Task</p>
                             </a>
@@ -120,55 +128,3 @@
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
   </body>
-
-
-
-
-{{-- <div class="wrapper d-flex align-items-stretch">
-    <nav id="sidebar">
-        <div class="custom-menu">
-            <button type="button" id="sidebarCollapse" class="btn btn-primary z-3">
-                <i class="bi bi-arrow-left-right fs-5"></i>
-            </button>
-        </div>
-        <div class="p-4">
-            <a href="{{ route ('dashboard') }}" class="navbar-brand me-5"><img src="{{ Vite::asset('resources/images/logo.svg') }}" alt=""></a>
-            <ul class="list-unstyled components mt-5">
-
-                <li>
-                    <a href="{{ route ('dashboard') }}" class="nav-link @if($currentRouteName == 'dashboard') text-primary @endif"><i class="bi bi-speedometer"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="{{ route ('workspace') }}" class="nav-link @if($currentRouteName == 'workspace') text-primary @endif"><i class="bi bi-person-workspace"></i> Workspace</a>
-                </li>
-                <li>
-                    <a href="{{ route ('task') }}" class="nav-link @if($currentRouteName == 'task') text-primary @endif"><i class="bi bi-person-lines-fill"></i> Task</a>
-                </li>
-                <li>
-                    <a class="text-danger text-decoration-none" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-box-arrow-left"></i> {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Page Content  -->
-    <div id="content" class="px-4">
-        <nav class="navbar bg-light border-bottom">
-            <div class="container-fluid">
-                <p></p>
-                <a href="" class="fs-5 py-2 nav-link text-warning @if($currentRouteName == 'profile') text-white @endif">
-                    <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
-                </a>
-            </div>
-          </nav>
-
-    </div>
-</div> --}}
-
-
-
