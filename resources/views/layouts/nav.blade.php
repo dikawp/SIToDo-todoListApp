@@ -15,7 +15,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav">
                 <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'welcome') text-primary @endif" href="{{ route('welcome') }}">Home</a></li>
-                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'features') text-primary @endif" href="">Features</a></li>
+                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'features') text-primary @endif" href="{{ route('features') }}">Features</a></li>
                 <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'help') text-primary @endif" href="">Help</a></li>
             </ul>
 

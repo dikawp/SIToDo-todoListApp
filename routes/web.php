@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('features', function () {
+    return view('features');
+})->name('features');
+
 Auth::routes();
 
 // Dashboard
