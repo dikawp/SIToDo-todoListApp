@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('workspaces.workTasks.taskIndex');
+        return view('workspaces.detail');
     }
 
     /**
@@ -31,7 +31,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $sessionId = auth()->user()->id;
+        // $sessionId = auth()->user()->id;
 
         $task = New Task;
         $task->workspace_id = $request->workId;
@@ -61,9 +61,11 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $workspace = Workspace::find($id);
+        $task = Task::find($id);
 
-        return view('workspaces.workTasks.taskEdit', ['workId' => $workspace->id]);
+        return view('workspaces.workTasks.taskEdit', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -71,7 +73,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $task = Task::find($id);
+        $task->workspace_id = $request->workId;
+        $task->namaTask = $request->taskName;
+        $task->startDate = $request->startDate;
+        $task->dueDate = $request->dueDate;
+        $task->status = $request->status;
+        $task->save();
+
+        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
 
     /**
@@ -79,6 +89,9 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Task::find($id)->delete();
+        // $workspace = Workspace::find($id);
+
+        return back();
     }
 }

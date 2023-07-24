@@ -14,7 +14,7 @@
         {{-- <h3 class="mt-3">{{ $workId }}</h3> --}}
         <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="" class="form-control" id="workId" name="workId" value="{{ $workId }}">
+            <input type="" class="form-control" id="workId" name="workId" value="{{ $workId }}" hidden>
             <div class="mb-3">
               <label for="taskName" class="form-label">Task Name</label>
               <input type="" class="form-control" id="taskName" name="taskName">
@@ -28,8 +28,12 @@
               <input type="date" class="form-control" id="dueDate" name="dueDate">
             </div>
             <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <input type="" class="form-control" id="status" name="status">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-select">
+                  <option value="pending">Pending</option>
+                  <option value="onprogress">On-Progress</option>
+                  <option value="done">Done</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
