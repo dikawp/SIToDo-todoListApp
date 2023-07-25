@@ -95,8 +95,9 @@ class WorkspaceController extends Controller
     {
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
+        $user = User::all();
 
-        return view('workspaces.edit', compact('workspace','sessionId'));
+        return view('workspaces.edit', compact('workspace','sessionId','user'));
     }
 
     /**
