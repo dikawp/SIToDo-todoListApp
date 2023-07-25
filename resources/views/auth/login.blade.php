@@ -144,12 +144,12 @@ border-bottom-right-radius: .3rem;
                         </a> --}}
                     @endif
                         {{-- in</button>
-                      <a class="text-muted" href="#!">Forgot password?</a> --}}
+                      <a class="text-muted" href="">Forgot password?</a> --}}
                     </div>
   
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">Don't have an account?</p>
-                      <button type="button" class="btn btn-outline-danger">Create new</button>
+                      <button type="button" class="btn btn-outline-danger">Sign Up</button>
                     </div>
   
                   </form>
