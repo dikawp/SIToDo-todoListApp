@@ -1,8 +1,7 @@
 @php
     $currentRouteName = Route::currentRouteName();
 @endphp
-
-@vite('resources/sass/app.scss')
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 <nav class="navbar navbar-expand-md navbar-light bg-light border border-bottom sticky-top">
     <div class="container">
         <a href="{{'/'}}" class="navbar-brand me-5"><img src="{{ Vite::asset('resources/images/logo.svg') }}" alt=""></a>
@@ -42,3 +41,4 @@
         </div>
     </div>
 </nav>
+
