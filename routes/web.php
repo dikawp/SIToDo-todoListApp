@@ -24,6 +24,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('features', function () {
+    return view('features');
+})->name('features');
+
+Route::get('help', function () {
+    return view('help');
+})->name('help');
+
 Auth::routes();
 
 // Profile
