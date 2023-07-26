@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Task</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
     @extends('layouts.sidebar')
 
     @section('content')
+
+        @if(session()->has('deleteSuccess'))
+        <script>
+            Swal.fire(
+        'Succes deleted',
+        'Your file has been deleted.',
+        'success')
+        </script>
+        @endif
+
+        @if(session()->has('updateSuccess'))
+        <script>
+            Swal.fire(
+        'updated',
+        'Your file has been updated.',
+        'success')
+        </script>
+        @endif
+
     <div class="container-sm">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="mt-3">Personal Task</h3>
@@ -44,11 +64,12 @@
                         <td>
                             <div class="d-flex">
                                 <a href="{{ route('persontasks.edit',['persontask' => $tasks->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
-                                <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST">
+                                <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST" id="deleteForm{{$tasks->id}}">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-outline-dark btn-sm me-2 btn-delete">
-                                        <i class="bi-trash"></i>
+                                    <button type="button" class="btn btn-outline-dark btn-sm me-2 " 
+                                    onclick="confirmDelete('{{$tasks->id}}')">                                      
+                                     <i class="bi-trash"></i>
                                     </button>
                                 </form>
                             </div>
@@ -64,7 +85,26 @@
         <script type="module">
             $(document).ready(function() {
                 $('#personTable').DataTable();
+                
             });
+        </script>
+        <script>
+            function confirmDelete(tasksId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+               
+                document.getElementById('deleteForm'+ tasksId).submit();
+                }
+            })
+            }
         </script>
     @endpush
 

@@ -140,7 +140,7 @@ class WorkspaceController extends Controller
             return redirect()->route('workspaces.index');
         }
 
-        return redirect()->route('workspaces.index');
+        return redirect()->route('workspaces.index')->with('deleteSuccess', '');
     }
 
 
