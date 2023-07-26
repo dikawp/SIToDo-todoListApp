@@ -11,6 +11,7 @@
     @extends('layouts.sidebar')
 
     @section('content')
+    @vite('resources/js/datatable.js')
     <div class="container-sm">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="mt-3">List Workspace</h3>

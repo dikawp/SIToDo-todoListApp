@@ -76,7 +76,6 @@ class WorkspaceController extends Controller
      */
     public function show(string $id)
     {
-        // BUG ROUTE ACCESS (Bisa diakses oleh user non member melalui url)
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
 
@@ -96,8 +95,9 @@ class WorkspaceController extends Controller
     {
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
+        $user = User::all();
 
-        return view('workspaces.edit', compact('workspace','sessionId'));
+        return view('workspaces.edit', compact('workspace','sessionId','user'));
     }
 
     /**

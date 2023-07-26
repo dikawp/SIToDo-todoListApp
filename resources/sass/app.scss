@@ -11,3 +11,18 @@
 // DataTables
 @import "datatables.net-bs5/css/dataTables.bootstrap5.css";
 @import "datatables.net-buttons-bs5/css/buttons.bootstrap5.css";
+
+
+ul {
+    li {
+        border-radius: 10px;
+        &:hover {
+            background-color: #f1f4ff !important;
+        }
+
+        a {
+            color: black !important;
+            background-color: transparent !important;
+        }
+    }
+}
