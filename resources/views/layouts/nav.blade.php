@@ -1,8 +1,7 @@
 @php
     $currentRouteName = Route::currentRouteName();
 @endphp
-
-@vite('resources/sass/app.scss')
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 <nav class="navbar navbar-expand-md navbar-light bg-light border border-bottom sticky-top">
     <div class="container">
         <a href="{{'/'}}" class="navbar-brand me-5"><img src="{{ Vite::asset('resources/images/logo.svg') }}" alt=""></a>
@@ -15,8 +14,8 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav">
                 <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'welcome') text-primary @endif" href="{{ route('welcome') }}">Home</a></li>
-                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'features') text-primary @endif" href="">Features</a></li>
-                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'help') text-primary @endif" href="">Help</a></li>
+                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'features') text-primary @endif" href="{{ route('features') }}">Features</a></li>
+                <li class=" me-3 text-decoration-none fw-medium"><a style="font-size: 20px" class="nav-link @if($currentRouteName == 'help') text-primary @endif" href="{{ route('help') }}">Help</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -42,3 +41,4 @@
         </div>
     </div>
 </nav>
+
