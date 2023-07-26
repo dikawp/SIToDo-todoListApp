@@ -51,6 +51,17 @@
                     </form>
                 </div>
             </div>
+        </div>5
+
+        <div class="grid text-center text-primary mt-5 py-5">
+            <div class="g-col-5 mt-3">
+                <h1>Start Organizing Your Work</h1>
+                <h1>With Us, Si ToDo</h1>
+            </div>
+        </div>
+
+        <div class="grid text-center text-primary py-5">
+            <button type="button" class="btn btn-primary btn-lg">Get Started</button>
         </div>
 
         <div class="container">
