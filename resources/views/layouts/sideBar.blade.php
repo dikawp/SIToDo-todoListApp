@@ -2,9 +2,14 @@
     $currentRouteName = Route::currentRouteName();
 @endphp
 
-@vite(['resources/sass/sidebar.scss', 'resources/js/sidebar.js'])
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}"/>
+
+<!-- Styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
 
 <body>
     <!--  Body Wrapper -->
@@ -64,6 +69,7 @@
         </div>
       </aside>
       <!--  Sidebar End -->
+
       <!--  Main wrapper -->
       <div class="body-wrapper">
         <!--  Header Start -->
@@ -75,12 +81,6 @@
                   <i class="ti ti-menu-2"></i>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                  <i class="ti ti-bell-ringing"></i>
-                  <div class="notification bg-primary rounded-circle"></div>
-                </a>
-              </li> --}}
             </ul>
             <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
@@ -122,9 +122,11 @@
     </div>
 
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </body>

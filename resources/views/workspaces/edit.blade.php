@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Update Workspace</title>
 </head>
 <body>
@@ -19,10 +20,16 @@
               <label for="workspaceName" class="form-label">Workspace's Name</label>
               <input type="" class="form-control" id="workspaceName" name="workspaceName">
             </div>
+
             <div class="mb-3">
               <label for="newName" class="form-label">Add member</label>
-              <input type="" class="form-control" id="newName" name="newName">
+              <select class="form-control" id="newName" name="newName">
+                @foreach ($user as $users )
+                    <option value="{{ $users->id }}">{{ $users->email }}</option>
+                @endforeach
+              </select>
             </div>
+
             <div class="mb-3">
               <label for="workspaceDesc" class="form-label">Description</label>
               <textarea class="form-control" placeholder="" id="workspaceDesc" style="height: 100px" name="workspaceDesc"></textarea>
@@ -31,5 +38,14 @@
           </form>
     </div>
     @endsection
+
+    @push('scripts')
+    <script type="module">
+        // For Select2 4.1
+        $("#newName").select2({
+            theme: "bootstrap-5",
+        });
+    </script>
+    @endpush
 </body>
 </html>
