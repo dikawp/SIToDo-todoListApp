@@ -85,7 +85,7 @@ class personTaskController extends Controller
         $task->category_id = $request->category;
         $task->save();
 
-        return redirect()->route('persontasks.index');
+        return redirect()->route('persontasks.index')->with('updateSuccess', '');
     }
 
     /**
@@ -95,6 +95,6 @@ class personTaskController extends Controller
     {
         personTask::find($id)->delete();
 
-        return redirect()->route('persontasks.index');
+        return redirect()->route('persontasks.index')->with('deleteSuccess', '');
     }
 }
