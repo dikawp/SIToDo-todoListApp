@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\Task;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class TaskController extends Controller
 {
@@ -11,8 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        
-        return view('tasks.index');
+        return view('workspaces.detail');
     }
 
     /**
@@ -20,7 +23,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,7 +31,17 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $sessionId = auth()->user()->id;
+
+        $task = New Task;
+        $task->workspace_id = $request->workId;
+        $task->namaTask = $request->taskName;
+        $task->startDate = $request->startDate;
+        $task->dueDate = $request->dueDate;
+        $task->status = $request->status;
+        $task->save();
+
+        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
 
     /**
@@ -36,7 +49,11 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // $sessionId = auth()->user()->id;
+
+        $workspace = Workspace::find($id);
+
+        return view('workspaces.workTasks.taskIndex', ['workId' => $workspace->id]);
     }
 
     /**
@@ -44,7 +61,11 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $task = Task::find($id);
+
+        return view('workspaces.workTasks.taskEdit', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -52,7 +73,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $task = Task::find($id);
+        $task->workspace_id = $request->workId;
+        $task->namaTask = $request->taskName;
+        $task->startDate = $request->startDate;
+        $task->dueDate = $request->dueDate;
+        $task->status = $request->status;
+        $task->save();
+
+        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
 
     /**
@@ -60,6 +89,9 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Task::find($id)->delete();
+        // $workspace = Workspace::find($id);
+
+        return back();
     }
 }

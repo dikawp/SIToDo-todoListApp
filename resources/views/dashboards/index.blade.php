@@ -26,7 +26,7 @@
     <div class="container-fluid">
         {{-- {{ $idws }} --}}
         <!--  Row 1 -->
-        <div class="row">
+        <div class="row flex-column-reverse flex-lg-row">
           <div class="col-lg-8 d-flex align-items-strech">
             <div class="card w-100">
               <div class="card-body">
@@ -34,7 +34,7 @@
                   <div class="mb-3 mb-sm-0">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title fw-semibold">Personal Tasks</h5>
-                        <a style="font-size: 24px;" href=""><i class="bi bi-arrow-right"></i></a>
+                        <a style="font-size: 24px;" href="{{ route ('persontask') }}"><i class="bi bi-arrow-right"></i></a>
                     </div>
                     <div style="max-height: 25vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
                         <table class="table table-hover table-striped bg-white" id="workspaceTable">
@@ -105,7 +105,7 @@
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between">
                   <h5 class="card-title fw-semibold">Workspace List</h5>
-                  <a style="font-size: 24px;" href=""><i class="bi bi-arrow-right"></i></a>
+                  <a style="font-size: 24px;" href="{{ route ('workspace') }}"><i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div style="max-height: 40vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
                     <table class="table table-hover table-striped bg-white " id="workspaceTable">
@@ -135,7 +135,6 @@
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title fw-semibold">Workspace Task List</h5>
-                    <a style="font-size: 24px;" href=""><i class="bi bi-arrow-right"></i></a>
                   </div>
                 <div style="max-height: 40vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
                     <table class="table table-hover table-striped bg-white " id="workspaceTable">

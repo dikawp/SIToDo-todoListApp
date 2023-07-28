@@ -16,18 +16,18 @@
         @if(session()->has('deleteSuccess'))
         <script>
             Swal.fire(
-        'Succes deleted',
-        'Your file has been deleted.',
-        'success')
+            'Succes deleted',
+            'Your file has been deleted.',
+            'success')
         </script>
         @endif
 
         @if(session()->has('updateSuccess'))
         <script>
             Swal.fire(
-        'updated',
-        'Your file has been updated.',
-        'success')
+            'updated',
+            'Your file has been updated.',
+            'success')
         </script>
         @endif
 
@@ -67,8 +67,8 @@
                                 <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST" id="deleteForm{{$tasks->id}}">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-outline-dark btn-sm me-2 " 
-                                    onclick="confirmDelete('{{$tasks->id}}')">                                      
+                                    <button type="button" class="btn btn-outline-dark btn-sm me-2 "
+                                    onclick="confirmDelete('{{$tasks->id}}')">
                                      <i class="bi-trash"></i>
                                     </button>
                                 </form>
@@ -83,30 +83,24 @@
     @endsection
     @push('scripts')
         <script type="module">
-            $(document).ready(function() {
-                $('#personTable').DataTable();
-                
-            });
-        </script>
-        <script>
             function confirmDelete(tasksId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-               
-                document.getElementById('deleteForm'+ tasksId).submit();
-                }
-            })
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        document.getElementById('deleteForm'+ tasksId).submit();
+                    }
+                })
             }
         </script>
     @endpush
 
-</body>
-</html>
+    </body>
+    </html>
