@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/workspace', [WorkspaceController::class, 'index'])->name('workspace');
     Route::get('getWorkspaces', [WorkspaceController::class, 'getData'])->name('workspaces.getData');
     Route::resource('workspaces',WorkspaceController::class);
+    // Route::get('/search-users', [WorkspaceController::class, 'searchUser'])->name('search.users');
 });
 
 // Tasks

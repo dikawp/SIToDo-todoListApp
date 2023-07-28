@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Workspaces</title>
-</head>
-<body>
 
     @extends('layouts.sidebar')
 
@@ -38,11 +29,14 @@
     </div>
     @endsection
     @push('scripts')
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>
         <script type="module">
             $(document).ready(function() {
                 $("#workspaceTable").DataTable({
                     serverSide: true,
                     processing: true,
+                    responsive: true,
                     ajax: "/getWorkspaces",
                     columns: [
                         { data: "namaWorkspace", name: "namaWorkspace" },
@@ -58,7 +52,5 @@
             });
         </script>
 
-        <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
+
     @endpush
-</body>
-</html>

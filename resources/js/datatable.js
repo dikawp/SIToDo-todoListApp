@@ -1,5 +1,7 @@
 import 'bootstrap';
-
+import DataTable from 'datatables.net-bs5';
+import 'datatables.net-fixedheader-bs5';
+import 'datatables.net-responsive-bs5';
 
 import axios from 'axios';
 window.axios = axios;
