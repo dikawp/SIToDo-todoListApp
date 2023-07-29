@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -14,7 +15,7 @@
     <div class="container-sm">
         <h3 class="mt-3">Create Task</h3>
         <h3 class="mt-3">{{ $task }}</h3>
-        <form action="{{ route('persontasks.update', ['persontask' => $task->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('persontasks.update', ['persontask' => $task->id]) }}" method="POST" enctype="multipart/form-data" id="updateForm{{$task->id}}">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -45,10 +46,27 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-primary" onclick="confirmUpdated('{{$task->id}}')">Update</button>
           </form>
     </div>
     @endsection
+      <script>
+        function confirmUpdated(taskId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+          
+            document.getElementById('updateForm'+ taskId).submit();
+            }
+        })
+        }
+    </script>
 
 </body>
 </html>
