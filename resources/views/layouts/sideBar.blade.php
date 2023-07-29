@@ -71,7 +71,10 @@
                 </a>
               </li>
             </ul>
-          </nav>
+            <div style="margin-top: 300px" class="help text-center fw-bolder">
+                <a href="{{ route('help') }}">Help Center <i class="bi bi-headset"></i></a>
+            </div>
+        </nav>
         </div>
       </aside>
       <!--  Sidebar End -->
