@@ -8,9 +8,6 @@ use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Stmt\Return_;
-use Yajra\DataTables\Facades\DataTables;
 
 class WorkspaceController extends Controller
 {
@@ -96,12 +93,10 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
 
-        $level = Member::where('user_id','=',$sessionId)->pluck('level')->first();
-
-        if ($level == 1){
+        if ($workspace->user_id == $sessionId){
             $user = User::all();
-
             return view('workspaces.edit', compact('workspace','sessionId','user'));
+
         }else{
             return redirect()->back();
         }
@@ -156,19 +151,20 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
 
         // ELOQUENT
-        $detail = Member::all()
-        ->where('user_id','=',$sessionId)
+        $detail = Member::where('user_id','=',$sessionId)
         ->pluck('workspace_id');
 
         // ELOQUENT
-        $workspace = Workspace::all()
-        ->whereIn('id', $detail);
+        $workspace = Workspace::whereIn('id', $detail);
+
 
         if ($request->ajax()){
             return datatables()->of($workspace)
-                ->addIndexColumn()
-                ->addColumn('actions', function($workspace) {
-                    // Query
+            ->addIndexColumn()
+            ->addColumn('actions', function($workspace) {
+                // Query
+                // $level = $workspace->member->level;
+                // $level = Member::where('workspace_id','=',$workspace->id)->whereIn('level','1')->pluck('level');
                     return view('workspaces.actions', compact('workspace'));
                 })
                 ->toJson();

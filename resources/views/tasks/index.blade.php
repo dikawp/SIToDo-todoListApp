@@ -31,6 +31,7 @@
         </script>
         @endif
 
+        @vite('resources/js/datatable.js')
     <div class="container-sm">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="mt-3">Personal Task</h3>
@@ -82,7 +83,15 @@
     </div>
     @endsection
     @push('scripts')
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>
         <script type="module">
+            $(document).ready(function() {
+                $("#personTable").DataTable({
+                    responsive: true,
+                });
+            });
+
             function confirmDelete(tasksId) {
                 Swal.fire({
                     title: 'Are you sure?',

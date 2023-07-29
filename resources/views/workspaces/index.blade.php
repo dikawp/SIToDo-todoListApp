@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="table-responsive border p-3 rounded-3 mb-3">
-            {{ $available }}
+            {{-- {{ $available }} --}}
             @if (count($available) == 0)
                 <a href="{{ route ('workspaces.create') }}" class="btn btn-outline-primary">Create new Workspace</a>
             @else
@@ -37,6 +37,8 @@
                     serverSide: true,
                     processing: true,
                     responsive: true,
+                    // info: false,
+                    // paging: false,
                     ajax: "/getWorkspaces",
                     columns: [
                         { data: "namaWorkspace", name: "namaWorkspace" },
@@ -51,6 +53,4 @@
                 });
             });
         </script>
-
-
     @endpush

@@ -24,24 +24,25 @@
                 </div>
 
                 <div class="col-12 col-lg-6">
-                    <form>
+                    <form action="sendHelp" method="POST">
+                        @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label shadow-sm">
+                            <label for="fullName" class="form-label shadow-sm">
                                 <strong class="fs-5">Full Name</strong>
                             </label>
-                            <input type="text" class="form-control" id="name" aria-describedby="name">
+                            <input type="text" class="form-control" id="fullName" name="fullName">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label shadow-sm">
-                                <strong class="fs-5">Email Address</strong>
+                                <strong class="fs-5">Email</strong>
                             </label>
-                            <input type="email" class="form-control" id="email" aria-describedby="email">
+                            <input type="email" class="form-control" id="email" name="email">
                         </div>
                         <div class="mb-3">
                             <label for="textarea" class="form-label shadow-sm">
-                                <strong class="fs-5">Description</strong>
+                                <strong class="fs-5">Message</strong>
                             </label>
-                            <textarea class="form-control" id="textarea" rows="3"></textarea>
+                            <textarea class="form-control" id="textarea" rows="3" name="message"></textarea>
                         </div>
                         <div class="d-flex justify-content-center mt-5 ">
                             <button type="submit" class="btn btn-primary">
@@ -60,7 +61,8 @@
                     <div class="g-col-4">
                         <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
                     </div>
                 </div>
                 <p class="text-center text-muted">@2023 SiToDo, All rights Reserved by kelompok2</p>
