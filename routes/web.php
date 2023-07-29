@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\personTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
@@ -29,8 +30,13 @@ Route::get('features', function () {
 })->name('features');
 
 Route::get('help', function () {
-    return view('help');
+    return view('sendMail.help');
 })->name('help');
+
+
+
+// Mail Send
+Route::post('sendHelp', [MailController::class, 'index']);
 
 Auth::routes();
 
@@ -70,3 +76,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/persontask', [personTaskController::class, 'index'])->name('persontask');
     Route::resource('persontasks',personTaskController::class);
 });
+

@@ -16,7 +16,7 @@
 
         <div class="table-responsive border p-3 rounded-3 mb-3 mt-3">
             <div class="text-end">
-                {{ $category }}
+                {{-- {{ $category }} --}}
                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="" class="form-control" id="category" name="category" value="">

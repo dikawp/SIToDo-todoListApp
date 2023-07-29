@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Task</title>
-</head>
-<body>
     @extends('layouts.sidebar')
     @section('content')
     <div class="container-sm">
         <h3 class="mt-3">Update Task</h3>
-        <h3 class="mt-3">{{ $task }}</h3>
+        {{-- <h3 class="mt-3">{{ $task }}</h3> --}}
         <form action="{{ route('tasks.update', ['task' => $task->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -40,5 +31,3 @@
           </form>
     </div>
     @endsection
-</body>
-</html>

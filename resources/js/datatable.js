@@ -1,5 +1,5 @@
 import 'bootstrap';
-import DataTable from 'datatables.net-bs5';
+
 import 'datatables.net-fixedheader-bs5';
 import 'datatables.net-responsive-bs5';
 

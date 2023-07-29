@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home Page</title>
-</head>
-
-<body>
-
     @extends('layouts.app')
 
     @section('content')
@@ -34,7 +22,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="container">
             <div class="row py-5">
@@ -63,42 +50,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="container py-5">
-            <h2 class="text-center">Why Choose Us?</h2>
-            <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-                <div class="col">
-                    <div class="card">
-                        <i class="bi bi-wifi-off"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis placeat
-                                odio facere vero voluptatem dolor itaque exercitationem dolore nam doloribus.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <i class="bi bi-wechat"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis placeat
-                                odio facere vero voluptatem dolor itaque exercitationem dolore nam doloribus.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <i class="bi bi-whatsapp"></i>
-                        <div class="card-body">
-                            <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis placeat
-                                odio facere vero voluptatem dolor itaque exercitationem dolore nam doloribus.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <div class="container py-5">
             <div class="row g-4">
@@ -165,6 +116,3 @@
             </footer>
         </div>
      @endsection
-
-</body>
-</html>
