@@ -87,16 +87,14 @@
                                                 <p class="mb-0 me-2">Don't have an account?</p>
                                                 <a href="{{ route('register') }}">{{ __('Sign Up') }}</a>
                                             </div>
-
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                    <h4 class="mb-4">Organize Your Task More Easily With US</h4>
-                                    <p class="small mb-0">SiToDo helps you to get Task Completed.</p>
+                                <div class="text-white px-3 py-5 p-md-3 mx-md-4">
+                                    <img class="img-fluid" src="{{ Vite::asset('resources/images/login.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
