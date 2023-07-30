@@ -4,11 +4,14 @@
 
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+{{-- CSS Template Modernize --}}
 <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}"/>
 
-<!-- Styles -->
+<!-- CSS Select2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+{{-- Responsive Datatable --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css" />
 
@@ -68,7 +71,10 @@
                 </a>
               </li>
             </ul>
-          </nav>
+            <div style="margin-top: 300px" class="help text-center fw-bolder">
+                <a href="{{ route('help') }}">Help Center <i class="bi bi-headset"></i></a>
+            </div>
+        </nav>
         </div>
       </aside>
       <!--  Sidebar End -->
@@ -124,12 +130,13 @@
       </div>
     </div>
 
+    {{-- Script Template Modernize --}}
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <!-- Script Select2 -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </body>

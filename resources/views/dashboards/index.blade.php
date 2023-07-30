@@ -26,6 +26,7 @@
     <div class="container-fluid">
         {{-- {{ $idws }} --}}
         <!--  Row 1 -->
+        @vite('resources/js/datatable.js')
         <div class="row flex-column-reverse flex-lg-row">
           <div class="col-lg-8 d-flex align-items-strech">
             <div class="card w-100">
@@ -37,7 +38,7 @@
                         <a style="font-size: 24px;" href="{{ route ('persontask') }}"><i class="bi bi-arrow-right"></i></a>
                     </div>
                     <div style="max-height: 25vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
-                        <table class="table table-hover table-striped bg-white" id="workspaceTable">
+                        <table class="table table-hover table-striped bg-white" id="Tables">
                             <thead>
                                 <tr>
                                     <th>Task</th>
@@ -108,7 +109,7 @@
                   <a style="font-size: 24px;" href="{{ route ('workspace') }}"><i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div style="max-height: 40vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
-                    <table class="table table-hover table-striped bg-white " id="workspaceTable">
+                    <table class="table table-hover table-striped bg-white ">
                         <thead>
                             <tr>
                                 <th>Workspace</th>
@@ -137,7 +138,7 @@
                     <h5 class="card-title fw-semibold">Workspace Task List</h5>
                   </div>
                 <div style="max-height: 40vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
-                    <table class="table table-hover table-striped bg-white " id="workspaceTable">
+                    <table class="table table-hover table-striped bg-white " id="Tables2">
                         <thead>
                             <tr>
                                 <th>Workspace</th>
@@ -166,6 +167,27 @@
         </div>
     </div>
     @endsection
+
+    @push('scripts')
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>
+        <script type="module">
+            $(document).ready(function() {
+                $("#Tables").DataTable({
+                    responsive: true,
+                    searching: false,
+                    paging: false,
+                    info: false
+                });
+                $("#Tables2").DataTable({
+                    responsive: true,
+                    searching: false,
+                    paging: false,
+                    info: false
+                });
+            });
+        </script>
+    @endpush
 
 </body>
 </html>

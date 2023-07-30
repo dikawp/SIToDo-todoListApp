@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Main</title>
-</head>
-<body>
 
     @extends('layouts.sidebar')
 
     @section('content')
     <div class="container-sm">
-        <h3 class="mt-3">Create Task</h3>
+        <h3 class="mt-3">Create Personal Task</h3>
         {{-- <h3 class="mt-3">{{ $category }}</h3> --}}
         <form action="{{ route('persontasks.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -44,10 +35,9 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Create new Task</button>
+            <a href="{{ route ('persontask') }}" type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</a>
           </form>
     </div>
     @endsection
 
-</body>
-</html>
