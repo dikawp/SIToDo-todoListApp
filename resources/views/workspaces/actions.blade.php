@@ -2,8 +2,7 @@
     $currentRouteName = Route::currentRouteName();
 @endphp
 
-{{-- @foreach ($workspace as $workspace)
-    @if ($level == '1') --}}
+    @if ($level->pluck('level')->first() == '1')
         <div class="d-flex">
             <a href="{{ route('workspaces.show', ['workspace' => $workspace->id]) }}" class="btn btn-outline-dark btn-sm me-2">
                 <i class="bi bi-folder2-open"></i>
@@ -21,9 +20,9 @@
                 </form>
             </div>
         </div>
-    {{-- @else
+    @else
         <a href="{{ route('workspaces.show', ['workspace' => $workspace->id]) }}" class="btn btn-outline-dark btn-sm me-2">
             <i class="bi bi-folder2-open"></i>
         </a>
     @endif
-@endforeach --}}
+

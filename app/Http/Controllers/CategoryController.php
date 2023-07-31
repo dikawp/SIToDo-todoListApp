@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Member;
-use App\Models\Task;
-use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -37,6 +35,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $sessionId = auth()->user()->id;
+
+        $messages = [
+            'required' => 'Category name cannot be empty',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'category' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
 
         $category = New Category;
         $category->user_id = $sessionId;

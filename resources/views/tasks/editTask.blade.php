@@ -9,7 +9,8 @@
             @method('PUT')
             <div class="mb-3">
               <label for="namaTask" class="form-label">Task Name</label>
-              <input type="text" class="form-control" id="taskName" name="taskName" value="{{ $task->namaTask }}">
+              <input type="text" class="form-control @error('namaTask') is-invalid @enderror" id="taskName" name="taskName" value="{{ $task->namaTask }}">
+              @error ('namaTask') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
               <label for="startDate" class="form-label">Start Date</label>
