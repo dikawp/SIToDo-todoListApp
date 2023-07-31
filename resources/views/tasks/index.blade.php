@@ -57,9 +57,9 @@
                                 <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST" id="deleteForm{{$tasks->id}}">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-outline-dark btn-sm me-2 "
+                                    <button type="submit" class="btn btn-outline-dark btn-sm me-2 "
                                     onclick="confirmDelete('{{$tasks->id}}')">
-                                     <i class="bi-trash"></i>
+                                    <i class="bi-trash"></i>
                                     </button>
                                 </form>
                             </div>

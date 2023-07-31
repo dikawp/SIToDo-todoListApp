@@ -3,7 +3,7 @@
     @section('content')
     <div class="container-sm">
         <h3 class="mt-3">Create Task</h3>
-        <h3 class="mt-3">{{ $task }}</h3>
+        {{-- <h3 class="mt-3">{{ $task }}</h3> --}}
         <form action="{{ route('persontasks.update', ['persontask' => $task->id]) }}" method="POST" enctype="multipart/form-data" id="updateForm{{$task->id}}">
             @csrf
             @method('PUT')
@@ -35,7 +35,7 @@
                     @endforeach
                 </select>
             </div>
-            <button type="button" class="btn btn-primary" onclick="confirmUpdated('{{$task->id}}')">Update</button>
+            <button type="submit" class="btn btn-primary" onclick="confirmUpdated('{{$task->id}}')">Update</button>
           </form>
     </div>
     @endsection

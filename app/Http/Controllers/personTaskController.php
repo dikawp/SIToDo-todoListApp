@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\personTask;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class personTaskController extends Controller
 {
@@ -37,6 +38,18 @@ class personTaskController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => 'Please input Task Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'taskName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $sessionId = auth()->user()->id;
 
         $personTasks = New personTask;

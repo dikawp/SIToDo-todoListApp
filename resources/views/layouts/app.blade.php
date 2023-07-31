@@ -19,8 +19,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body>
-    @include("layouts.nav")
+    @include('layouts.nav')
     @yield('content')
     @stack('scripts')
 </body>

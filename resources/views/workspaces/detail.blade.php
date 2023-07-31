@@ -30,6 +30,11 @@
                         <tr>
                             <td>{{ $name->name }}</td>
                             <td>{{ $name->email }}</td>
+                            @if ($name->member->pluck('level')->first() == '1')
+                            <td>Owner</td>
+                            @else
+                            <td>Member</td>
+                            @endif
                         </tr>
                         @endforeach
                     </table>
