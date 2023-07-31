@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class WorkspaceController extends Controller
 {
@@ -47,6 +48,18 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => 'Please input Workspace Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'workspaceName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
 
         $sessionId = auth()->user()->id;
 
@@ -62,7 +75,6 @@ class WorkspaceController extends Controller
         $member->user_id = $sessionId;
         $member->level = '1';
         $member->save();
-
 
 
         return redirect()->route('workspaces.index');
@@ -93,14 +105,17 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
 
+        $member = Member::all()->where('workspace_id','=',$workspace->id)->pluck('user_id');
+
+        $usersName = User::all()->whereIn('id',$member);
+
         if ($workspace->user_id == $sessionId){
             $user = User::all();
-            return view('workspaces.edit', compact('workspace','sessionId','user'));
+            return view('workspaces.edit', compact('workspace','sessionId','user','usersName'));
 
         }else{
             return redirect()->back();
         }
-
     }
 
     /**
@@ -108,6 +123,18 @@ class WorkspaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = [
+            'required' => 'Please input Workspace Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'workspaceName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $workspace = Workspace::find($id);
         $workspace->user_id = $request->user_id;
         $workspace->namaWorkspace = $request->workspaceName;
@@ -138,13 +165,13 @@ class WorkspaceController extends Controller
 
         if ($work->user_id == $sessionId){
             $work->delete();
-        }else{
+        }
+        else{
             return redirect()->route('workspaces.index');
         }
 
         return redirect()->route('workspaces.index');
     }
-
 
     public function getData(Request $request)
     {
@@ -157,14 +184,13 @@ class WorkspaceController extends Controller
         // ELOQUENT
         $workspace = Workspace::whereIn('id', $detail);
 
-
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return datatables()->of($workspace)
-            ->addIndexColumn()
-            ->addColumn('actions', function($workspace) {
-                // Query
-                // $level = $workspace->member->level;
-                // $level = Member::where('workspace_id','=',$workspace->id)->whereIn('level','1')->pluck('level');
+                ->addIndexColumn()
+                ->addColumn('actions', function ($workspace) {
+                    // Query to get the level for the current workspace and user
+                    // $level = Member::whereIn('workspace_id', $workspace->id)
+                    //     ->pluck('level')->first();
                     return view('workspaces.actions', compact('workspace'));
                 })
                 ->toJson();

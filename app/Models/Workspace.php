@@ -18,10 +18,10 @@ class Workspace extends Model
     }
 
     public function member(){
-        return $this->hasMany(Members::class);
+        return $this->hasMany(Member::class);
     }
 
     public function task(){
-        return $this->hasMany(Tasks::class);
+        return $this->hasMany(Task::class);
     }
 }

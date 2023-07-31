@@ -9,7 +9,8 @@
             @csrf
             <div class="mb-3">
               <label for="namaTask" class="form-label">Task Name</label>
-              <input type="" class="form-control" id="taskName" name="taskName">
+              <input type="" class="form-control @error('taskName') is-invalid @enderror" id="taskName" name="taskName" placeholder="New Task name">
+              @error ('taskName') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
               <label for="startDate" class="form-label">Start Date</label>
@@ -30,6 +31,7 @@
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <select id="category" name="category" class="form-select">
+                    <option value="" selected>Add category</option>
                     @foreach ($category as $categories )
                      <option value="{{ $categories->id }}">{{ $categories->categoryName }}</option>
                     @endforeach

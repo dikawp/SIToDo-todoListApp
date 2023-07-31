@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeleteUser;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\personTaskController;
@@ -38,6 +39,7 @@ Route::get('help', function () {
 // Mail Send
 Route::post('sendHelp', [MailController::class, 'index']);
 
+
 Auth::routes();
 
 // Profile
@@ -58,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('workspaces',WorkspaceController::class);
     // Route::get('/search-users', [WorkspaceController::class, 'searchUser'])->name('search.users');
 });
+
+Route::post('deleteUser', DeleteUser::class)->name('deleteUser');
 
 // Tasks
 Route::middleware(['auth'])->group(function () {

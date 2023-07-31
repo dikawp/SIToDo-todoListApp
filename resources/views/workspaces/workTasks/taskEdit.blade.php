@@ -9,7 +9,8 @@
             <input type="" class="form-control" id="workId" name="workId" value="{{ $task->workspace_id }}" hidden>
             <div class="mb-3">
               <label for="taskName" class="form-label">Task Name</label>
-              <input type="" class="form-control" id="taskName" name="taskName" value="{{ $task->namaTask }}">
+              <input type="" class="form-control @error('taskName') is-invalid @enderror" id="taskName" name="taskName" value="{{ $task->namaTask }}">
+              @error ('taskName') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
               <label for="startDate" class="form-label">Start Date</label>

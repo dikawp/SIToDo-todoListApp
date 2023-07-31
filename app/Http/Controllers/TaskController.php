@@ -6,6 +6,7 @@ use App\Models\Member;
 use App\Models\Task;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Type\Integer;
 
 class TaskController extends Controller
@@ -32,6 +33,18 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         // $sessionId = auth()->user()->id;
+
+        $messages = [
+            'required' => 'Please input Task Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'taskName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
 
         $task = New Task;
         $task->workspace_id = $request->workId;
@@ -73,6 +86,18 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = [
+            'required' => 'Task name cannot be empty',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'taskName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $task = Task::find($id);
         $task->workspace_id = $request->workId;
         $task->namaTask = $request->taskName;
