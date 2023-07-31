@@ -90,6 +90,19 @@ class personTaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $messages = [
+            'required' => 'Task name cannot be empty',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'namaTask' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $task = personTask::find($id);
         $task->namaTask = $request->taskName;
         $task->startDate = $request->startDate;

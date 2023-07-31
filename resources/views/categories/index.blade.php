@@ -19,7 +19,8 @@
                 {{-- {{ $category }} --}}
                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="" class="form-control" id="category" name="category" value="">
+                    <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="" placeholder="Add new Category">
+                    @error ('category') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
                     <button type="submit" class="btn btn-primary my-2">Add New Category</button>
                 </form>
             </div>
@@ -47,9 +48,6 @@
                 </tbody>
                 @endforeach
             </table>
-            {{-- @if (count($available) == 0)
-            @else
-            @endif --}}
         </div>
     </div>
     @endsection

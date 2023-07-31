@@ -189,9 +189,9 @@ class WorkspaceController extends Controller
                 ->addIndexColumn()
                 ->addColumn('actions', function ($workspace) {
                     // Query to get the level for the current workspace and user
-                    // $level = Member::whereIn('workspace_id', $workspace->id)
-                    //     ->pluck('level')->first();
-                    return view('workspaces.actions', compact('workspace'));
+                    $sessionId = auth()->user()->id;
+                    $level = Member::where('workspace_id', '=', $workspace->id)->where('user_id','=',$sessionId);
+                    return view('workspaces.actions', compact('workspace','level'));
                 })
                 ->toJson();
         }
