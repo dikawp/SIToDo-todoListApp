@@ -7,7 +7,7 @@
             <label class="form-label">Member Lists</label>
             {{-- {{ $usersName }} --}}
             <div style="height: 100px" class="card-footer overflow-y-scroll" id="scroll">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover membertable">
                     @foreach ( $usersName as $name )
                     <tr>
                         <td>{{ $name->name }}</td>
@@ -52,7 +52,7 @@
                     <option value="{{ $users->id }}">{{ $users->email }}</option>
                 @endforeach
               </select>
-              <a href="javascript:void(0)" id="clearButton">y</a>
+              <a href="javascript:void(0)" class="btn btn-secondary fs-3 mt-2" id="clearButton">Clear Selection</a>
             </div>
 
             <div class="mb-3">

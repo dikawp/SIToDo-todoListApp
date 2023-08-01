@@ -125,6 +125,7 @@
         <!--  Header End -->
         <div class="container-fluid">
             @yield('content')
+            @include('sweetalert::alert')
             @stack('scripts')
         </div>
       </div>

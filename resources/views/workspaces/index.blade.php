@@ -11,11 +11,11 @@
             </div>
         </div>
         <div class="table-responsive border p-3 rounded-3 mb-3">
-            {{ $available }}
+            {{-- {{ $available }} --}}
             @if (count($available) == 0)
                 <a href="{{ route ('workspaces.create') }}" class="btn btn-outline-primary">Create new Workspace</a>
             @else
-                <table class="table table-hover table-striped bg-white " id="workspaceTable">
+                <table class="table table-hover table-striped bg-white datatable" id="workspaceTable">
                     <thead>
                         <tr>
                             <th>Workspace</th>
@@ -49,6 +49,26 @@
                         [10, 25, 50, 100, "All"],
                     ],
                 });
+
+                $(".datatable").on("click", ".btn-delete", function (e) {
+                    e.preventDefault();
+
+                    var form = $(this).closest("form");
+
+                    Swal.fire({
+                        title: "Are you sure want to delete ?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "bg-primary",
+                        confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
             });
+
         </script>
     @endpush

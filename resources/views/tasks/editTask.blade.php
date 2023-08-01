@@ -8,9 +8,9 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-              <label for="namaTask" class="form-label">Task Name</label>
-              <input type="text" class="form-control @error('namaTask') is-invalid @enderror" id="taskName" name="taskName" value="{{ $task->namaTask }}">
-              @error ('namaTask') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
+              <label for="taskName" class="form-label">Task Name</label>
+              <input type="text" class="form-control @error('taskName') is-invalid @enderror" id="taskName" name="taskName" value="{{ $task->namaTask }}">
+              @error ('taskName') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
               <label for="startDate" class="form-label">Start Date</label>
@@ -36,25 +36,9 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="confirmUpdated('{{$task->id}}')">Update</button>
+            <button type="submit" class="btn btn-primary">Update</button>
           </form>
     </div>
     @endsection
-      <script>
-        function confirmUpdated(taskId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, update it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
 
-            document.getElementById('updateForm'+ taskId).submit();
-            }
-        })
-        }
-    </script>
 

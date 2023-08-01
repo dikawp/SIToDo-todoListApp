@@ -95,19 +95,22 @@
                                 <div class="mt-2">
                                     <div class="form-group">
                                         <label for="fullName">Full Name</label>
-                                        <input type="text" name="fullName" class="form-control" id="fullName" value="{{ $profile->name }}" placeholder="Enter full name">
+                                        <input type="text" name="fullName" class="form-control @error('fullName') is-invalid @enderror" id="fullName" value="{{ $profile->name }}" placeholder="Enter full name">
+                                        @error ('fullName') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" id="email" value="{{ $profile->email }}" placeholder="Enter email">
+                                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ $profile->email }}" placeholder="Enter email">
+                                        @error ('email') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
                                 <div class="mt-2">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" class="form-control" id="phone" value="" placeholder="Enter new Password">
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="phone" placeholder="Enter new Password">
+                                        @error ('password') <div class="fs-3 text-danger">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
                                 <div class="mt-2">

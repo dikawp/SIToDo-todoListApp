@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DeleteUser extends Controller
 {
@@ -14,9 +15,13 @@ class DeleteUser extends Controller
     {
         $name = $request->input('nameId');
         $work = $request->input('workspaceId');
-        
+
         Member::where('user_id','=',$name)->where('workspace_id','=',$work)->delete();
 
+        Alert::toast('Member Deleted', 'success');
+
+        confirmDelete();
+        
         return redirect()->back();
     }
 }

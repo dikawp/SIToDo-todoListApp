@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -17,6 +18,7 @@ class CategoryController extends Controller
 
         $category = Category::all()->whereIn('user_id', $sessionId);
 
+        confirmDelete();
 
         return view('categories.index',['category'=>$category]);
     }
@@ -54,6 +56,8 @@ class CategoryController extends Controller
         $category->categoryName = $request->category;
         $category->save();
 
+        Alert::toast('Category Added', 'success');
+
         return redirect()->route('categories.index');
     }
 
@@ -89,6 +93,8 @@ class CategoryController extends Controller
         // $sessionId = auth()->user()->id;
 
         Category::find($id)->delete();
+
+        Alert::toast('Category Deleted', 'success');
 
         return redirect()->route('categories.index');
     }

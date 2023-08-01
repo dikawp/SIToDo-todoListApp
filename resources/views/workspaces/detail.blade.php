@@ -50,7 +50,7 @@
                 <a href="{{ route ('tasks.show',['task' => $workspace->id])}}" class="btn btn-outline-primary">Create new Task</a>
                 {{-- {{ $member }} --}}
                 <div style="max-height: 40vh;" class="table-responsive mb-3 overflow-y-scroll" id="scroll">
-                    <table class="table table-hover table-striped bg-white " id="taskTable">
+                    <table class="table table-hover table-striped bg-white tasktable" id="taskTable">
                         <thead>
                             <tr>
                                 <th>Task</th>
@@ -102,6 +102,26 @@
                     paging: false,
                     info: false
                 });
+
+                $(".tasktable").on("click", ".btn-delete", function (e) {
+                    e.preventDefault();
+
+                    var form = $(this).closest("form");
+
+                    Swal.fire({
+                        title: "Are you sure want to delete ?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "bg-primary",
+                        confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
             });
         </script>
     @endpush

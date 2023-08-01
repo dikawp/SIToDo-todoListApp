@@ -28,7 +28,7 @@
         <div class="table-responsive border p-3 rounded-3 mb-3">
             {{-- {{ $persontask }} --}}
             <a href="{{ route('persontasks.create') }}" class="btn btn-outline-primary mb-3">Create new Task</a>
-            <table class="table table-hover table-striped bg-white" id="personTable">
+            <table class="table table-hover table-striped bg-white personTable" id="personTable">
                 <thead>
                     <tr>
                         <th>Task</th>
@@ -54,11 +54,10 @@
                         <td>
                             <div class="d-flex">
                                 <a href="{{ route('persontasks.edit',['persontask' => $tasks->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
-                                <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST" id="deleteForm{{$tasks->id}}">
+                                <form action="{{ route('persontasks.destroy',['persontask' => $tasks->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-outline-dark btn-sm me-2 "
-                                    onclick="confirmDelete('{{$tasks->id}}')">
+                                    <button type="submit" class="btn btn-outline-dark btn-sm me-2 btn-delete">
                                     <i class="bi-trash"></i>
                                     </button>
                                 </form>
@@ -82,23 +81,25 @@
                     paging: false,
                     info: false
                 });
+
+                $(".personTable").on("click", ".btn-delete", function (e) {
+                    e.preventDefault();
+
+                    var form = $(this).closest("form");
+
+                    Swal.fire({
+                        title: "Are you sure want to delete ?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "bg-primary",
+                        confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
             });
-
-            function confirmDelete(tasksId) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-                        document.getElementById('deleteForm'+ tasksId).submit();
-                    }
-                })
-            }
         </script>
     @endpush
