@@ -8,6 +8,7 @@ use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Type\Integer;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskController extends Controller
 {
@@ -16,6 +17,9 @@ class TaskController extends Controller
      */
     public function index()
     {
+
+        confirmDelete();
+
         return view('workspaces.detail');
     }
 
@@ -53,6 +57,8 @@ class TaskController extends Controller
         $task->dueDate = $request->dueDate;
         $task->status = $request->status;
         $task->save();
+
+        Alert::toast('Task Created', 'success');
 
         return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
@@ -106,6 +112,8 @@ class TaskController extends Controller
         $task->status = $request->status;
         $task->save();
 
+        Alert::toast('Task Updated', 'success');
+
         return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
 
@@ -116,6 +124,8 @@ class TaskController extends Controller
     {
         Task::find($id)->delete();
         // $workspace = Workspace::find($id);
+
+        Alert::toast('Task Deleted', 'success');
 
         return back();
     }

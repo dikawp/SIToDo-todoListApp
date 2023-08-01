@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\personTask;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class personTaskController extends Controller
 {
@@ -16,6 +17,8 @@ class personTaskController extends Controller
     {
         $sessionId = auth()->user()->id;
         $personTask = personTask::all()->where('user_id','=',$sessionId);
+
+        confirmDelete();
 
         return view('tasks.index',[
             'persontask'=>$personTask,
@@ -61,6 +64,8 @@ class personTaskController extends Controller
         $personTasks->category_id = $request->category;
         $personTasks->save();
 
+        Alert::toast('Task Created', 'success');
+
         return redirect()->route('persontasks.index');
     }
 
@@ -96,7 +101,7 @@ class personTaskController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'namaTask' => 'required',
+            'taskName' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
@@ -111,6 +116,8 @@ class personTaskController extends Controller
         $task->category_id = $request->category;
         $task->save();
 
+        Alert::toast('Task Updated', 'success');
+
         return redirect()->route('persontasks.index')->with('updateSuccess', '');
     }
 
@@ -121,6 +128,8 @@ class personTaskController extends Controller
     {
         personTask::find($id)->delete();
 
-        return redirect()->route('persontasks.index')->with('deleteSuccess', '');
+        Alert::toast('Task Deleted', 'success');
+
+        return redirect()->route('persontasks.index');
     }
 }

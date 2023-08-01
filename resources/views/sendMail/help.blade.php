@@ -30,19 +30,19 @@
                         <label for="fullName" class="form-label shadow-sm">
                             <strong class="fs-5">Full Name</strong>
                         </label>
-                        <input type="text" class="form-control" id="fullName" name="fullName">
+                        <input type="text" class="form-control" id="fullName" name="fullName" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label shadow-sm">
                             <strong class="fs-5">Email</strong>
                         </label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="textarea" class="form-label shadow-sm">
                             <strong class="fs-5">Message</strong>
                         </label>
-                        <textarea class="form-control" id="textarea" rows="3" name="message"></textarea>
+                        <textarea class="form-control" id="textarea" rows="3" name="message" required></textarea>
                     </div>
                     <div class="d-flex justify-content-center mt-5 ">
                         <button type="submit" class="btn btn-primary">

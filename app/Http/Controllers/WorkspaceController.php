@@ -9,6 +9,7 @@ use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WorkspaceController extends Controller
 {
@@ -26,6 +27,8 @@ class WorkspaceController extends Controller
         // $workspace = Member::find($sessionId);
 
         // $detail = Workspace::find($workspace);
+
+        confirmDelete();
 
         return view('workspaces.index',[
             'available' => $availabe,
@@ -76,6 +79,7 @@ class WorkspaceController extends Controller
         $member->level = '1';
         $member->save();
 
+        Alert::toast('Workspace Created', 'success');
 
         return redirect()->route('workspaces.index');
     }
@@ -151,6 +155,8 @@ class WorkspaceController extends Controller
             $member->save();
         }
 
+        Alert::toast('Workspace Updated','success');
+
         return redirect()->route('workspaces.index');
     }
 
@@ -169,6 +175,8 @@ class WorkspaceController extends Controller
         else{
             return redirect()->route('workspaces.index');
         }
+
+        Alert::toast('Workspace Deleted', 'success');
 
         return redirect()->route('workspaces.index');
     }

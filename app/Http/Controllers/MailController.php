@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\helpContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MailController extends Controller
 {
@@ -17,8 +18,8 @@ class MailController extends Controller
 
         Mail::to('superheroesyoo@gmail.com')->send(new helpContact($emailData));
 
-        // return view('sendMail.send', compact('emailData'));
-
-        dd('Email Sent');
+        Alert::toast('Message Sent','info');
+        
+        return redirect()->back();
     }
 }

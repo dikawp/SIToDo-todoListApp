@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -80,6 +82,20 @@ class ProfileController extends Controller
             $file->Store('public/files');
         }
 
+        $messages = [
+            'required' => 'This column cannot be empty',
+            'email' => 'Please enter a valid email address',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'fullName' => 'required',
+            'email' => 'required | email',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $profile =  User::find($id);
         $profile->id = $sessionId;
         $profile->name = $request->fullName;
@@ -95,6 +111,8 @@ class ProfileController extends Controller
             $profile->encrypted_filename = $encryptedFilename;
         }
         $profile->save();
+
+        Alert::toast('Profile Updated','success');
 
         return redirect()->route('profile.index');
     }
