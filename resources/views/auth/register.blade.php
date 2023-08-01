@@ -36,7 +36,7 @@
                 <div class="col-xl-10">
                     <div class="card rounded-3 text-black">
                         <div class="row g-0">
-                            <div style="height: 80vh;" class="col-lg-6">
+                            <div style="height: 93vh;" class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
 
                                     <div class="text-center">
@@ -53,8 +53,7 @@
                                             @csrf
 
                                             <div class="form-outline mb-3">
-                                                <label for="name"
-                                                    class="col-md-4 col-form-label">{{ __('Name') }}</label>
+                                                <label for="name" class="col-md-4 col-form-label">{{ __('Name') }}</label>
                                                 <input id="name" type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     placeholder="Create Your Name" name="name"
@@ -67,8 +66,7 @@
                                             </div>
 
                                             <div class="form-outline mb-3">
-                                                <label for="email"
-                                                    class="col-md-5 col-form-label">{{ __('Email Address') }}</label>
+                                                <label for="email" class="col-md-5 col-form-label">{{ __('Email Address') }}</label>
                                                 <input id="email" type="email"
                                                     class="form-control @error('email') is-invalid @enderror"
                                                     placeholder="Create Your Email" name="email"
@@ -81,12 +79,8 @@
                                             </div>
 
                                             <div class="form-outline mb-3">
-                                                <label for="password"
-                                                    class="col-md-4 col-form-label">{{ __('Password') }}</label>
-                                                <input id="password" type="password"
-                                                    class="form-control @error('password') is-invalid @enderror"
-                                                    placeholder="Create Your Password" name="password" required
-                                                    autocomplete="current-password">
+                                                <label for="password" class="col-md-5 col-form-label">{{ __('Password') }}</label>
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Create Password" name="password" required autocomplete="new-password">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -94,16 +88,15 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="form-outline mb-3">
+                                                <label for="password-confirm" class="col-md-5 col-form-label">{{ __('Confirm Password') }}</label>
+                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password">
+                                            </div>
+
                                             <div class="text-center pt-1 mb-1">
                                                 <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                                                     type="submit">{{ __('Register') }}
-                                                    @if (Route::has('password.request'))
-                                                        {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a> --}}
-                                                    @endif
-                                                    {{-- in</button>
-                            <a class="text-muted" href="">Forgot password?</a> --}}
+                                                </button>
                                             </div>
 
                                             <div class="d-flex align-items-center justify-content-center">
