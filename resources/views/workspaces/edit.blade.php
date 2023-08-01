@@ -5,14 +5,14 @@
 
         <div class="mb-3">
             <label class="form-label">Member Lists</label>
-            {{-- {{ $usersName }} --}}
             <div style="height: 100px" class="card-footer overflow-y-scroll" id="scroll">
                 <table class="table table-striped table-hover membertable">
+                    {{-- {{ $workspace->id }} --}}
                     @foreach ( $usersName as $name )
                     <tr>
                         <td>{{ $name->name }}</td>
                         <td>{{ $name->email }}</td>
-                        @if ($name->member->pluck('level')->first() == '1')
+                        @if ($name->member->where('workspace_id','=',$workspace->id)->pluck('level')->first() == '1')
                         <td>Owner</td>
                         @else
                         <td>
