@@ -16,8 +16,13 @@ class WorkspaceSeeder extends Seeder
         DB::table('workspaces')->insert([
             [
                 'user_id' => 1,
-                'namaWorkspace' => 'Wibu',
-                'deskWorkspace' => 'blablabla',
+                'namaWorkspace' => 'Kampus',
+                'deskWorkspace' => 'Workspace untuk kampus',
+            ],
+            [
+                'user_id' => 1,
+                'namaWorkspace' => 'Homework',
+                'deskWorkspace' => 'Workspace untuk Tugas Rumah',
             ],
         ]);
     }

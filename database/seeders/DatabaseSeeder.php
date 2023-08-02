@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             WorkspaceSeeder::class,
             MemberSeeder::class,
             personTaskSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
