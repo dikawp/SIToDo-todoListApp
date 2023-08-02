@@ -17,10 +17,10 @@ class personTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween(1, 3),
+            'user_id' => fake()->numberBetween(1, 4),
             'namaTask' => fake()->word(),
-            'startDate' => fake()->date(),
-            'dueDate' => fake()->date(),
+            'startDate' => fake()->dateTimeThisYear(),
+            'dueDate' => fake()->dateTimeBetween('now','+1 week'),
         ];
     }
 }
