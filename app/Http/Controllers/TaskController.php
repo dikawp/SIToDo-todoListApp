@@ -6,7 +6,9 @@ use App\Models\Member;
 use App\Models\Task;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Type\Integer;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TaskController extends Controller
 {
@@ -15,7 +17,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('workspaces.workTasks.taskIndex');
+
+        confirmDelete();
+
+        return view('workspaces.detail');
     }
 
     /**
@@ -31,7 +36,19 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $sessionId = auth()->user()->id;
+        // $sessionId = auth()->user()->id;
+
+        $messages = [
+            'required' => 'Please input Task Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'taskName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
 
         $task = New Task;
         $task->workspace_id = $request->workId;
@@ -40,6 +57,8 @@ class TaskController extends Controller
         $task->dueDate = $request->dueDate;
         $task->status = $request->status;
         $task->save();
+
+        Alert::toast('Task Created', 'success');
 
         return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
@@ -61,7 +80,11 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
+        $task = Task::find($id);
 
+        return view('workspaces.workTasks.taskEdit', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -69,7 +92,29 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $messages = [
+            'required' => 'Task name cannot be empty',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'taskName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $task = Task::find($id);
+        $task->workspace_id = $request->workId;
+        $task->namaTask = $request->taskName;
+        $task->startDate = $request->startDate;
+        $task->dueDate = $request->dueDate;
+        $task->status = $request->status;
+        $task->save();
+
+        Alert::toast('Task Updated', 'success');
+
+        return redirect()->route('workspaces.show',['workspace' => $task->workspace_id]);
     }
 
     /**
@@ -77,6 +122,11 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Task::find($id)->delete();
+        // $workspace = Workspace::find($id);
+
+        Alert::toast('Task Deleted', 'success');
+
+        return back();
     }
 }

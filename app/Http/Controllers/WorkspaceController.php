@@ -8,9 +8,8 @@ use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Stmt\Return_;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WorkspaceController extends Controller
 {
@@ -28,6 +27,8 @@ class WorkspaceController extends Controller
         // $workspace = Member::find($sessionId);
 
         // $detail = Workspace::find($workspace);
+
+        confirmDelete();
 
         return view('workspaces.index',[
             'available' => $availabe,
@@ -50,6 +51,18 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => 'Please input Workspace Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'workspaceName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
 
         $sessionId = auth()->user()->id;
 
@@ -66,7 +79,7 @@ class WorkspaceController extends Controller
         $member->level = '1';
         $member->save();
 
-
+        Alert::toast('Workspace Created', 'success');
 
         return redirect()->route('workspaces.index');
     }
@@ -76,7 +89,6 @@ class WorkspaceController extends Controller
      */
     public function show(string $id)
     {
-        // BUG ROUTE ACCESS (Bisa diakses oleh user non member melalui url)
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
 
@@ -97,7 +109,17 @@ class WorkspaceController extends Controller
         $sessionId = auth()->user()->id;
         $workspace = Workspace::find($id);
 
-        return view('workspaces.edit', compact('workspace','sessionId'));
+        $member = Member::all()->where('workspace_id','=',$workspace->id)->pluck('user_id');
+
+        $usersName = User::all()->whereIn('id',$member);
+
+        if ($workspace->user_id == $sessionId){
+            $user = User::all();
+            return view('workspaces.edit', compact('workspace','sessionId','user','usersName'));
+
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -105,6 +127,18 @@ class WorkspaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = [
+            'required' => 'Please input Workspace Name',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'workspaceName' => 'required',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         $workspace = Workspace::find($id);
         $workspace->user_id = $request->user_id;
         $workspace->namaWorkspace = $request->workspaceName;
@@ -112,13 +146,16 @@ class WorkspaceController extends Controller
         $workspace->save();
 
         $new = $request->newName;
-        $newMember = User::where('email','=',$new)->pluck('id')->first();
 
-        $member = New Member;
-        $member->workspace_id = $workspace->id;
-        $member->user_id = $newMember;
-        $member->level = '0';
-        $member->save();
+        if (!empty($new)) {
+            $member = New Member;
+            $member->workspace_id = $workspace->id;
+            $member->user_id = $new;
+            $member->level = '0';
+            $member->save();
+        }
+
+        Alert::toast('Workspace Updated','success');
 
         return redirect()->route('workspaces.index');
     }
@@ -130,64 +167,50 @@ class WorkspaceController extends Controller
     {
         $sessionId = auth()->user()->id;
 
-        $level = Member::where('user_id','=',$sessionId)->pluck('level')->first();
-
         $work = Workspace::find($id);
 
-        if ($level === "1" && $work){
+        if ($work->user_id == $sessionId){
             $work->delete();
-        }else{
+        }
+        else{
             return redirect()->route('workspaces.index');
         }
 
+        Alert::toast('Workspace Deleted', 'success');
+
         return redirect()->route('workspaces.index');
     }
-
 
     public function getData(Request $request)
     {
         $sessionId = auth()->user()->id;
 
-        // NYOBA" CUY
-        // $workspace = Member::find($sessionId);
-        // $detail = Workspace::find($workspace);
-        // $availabe = DB::table('members')->select('members.*')->where('members.user_id','=', $sessionId)->get();
-
-        // QUERY BUILDER
-        // $detail = DB::table('members')
-        // ->select('members.*')
-        // ->where('user_id','=',$sessionId)
-        // ->get()->pluck('workspace_id');
-
         // ELOQUENT
-        $detail = Member::all()
-        ->where('user_id','=',$sessionId)
+        $detail = Member::where('user_id','=',$sessionId)
         ->pluck('workspace_id');
 
-        // QUERY BUILDER
-        // $workspace = DB::table('workspaces')
-        // ->select('workspaces.*')
-        // ->whereIn('id', $detail)->get();
-
         // ELOQUENT
-        $workspace = Workspace::all()
-        ->whereIn('id', $detail);
+        $workspace = Workspace::whereIn('id', $detail);
 
-        if ($request->ajax()){
+        if ($request->ajax()) {
             return datatables()->of($workspace)
                 ->addIndexColumn()
-                ->addColumn('actions', function($workspace) {
-                    return view('workspaces.actions', compact('workspace'));
+                ->addColumn('actions', function ($workspace) {
+                    // Query to get the level for the current workspace and user
+                    $sessionId = auth()->user()->id;
+                    $level = Member::where('workspace_id', '=', $workspace->id)->where('user_id','=',$sessionId);
+                    return view('workspaces.actions', compact('workspace','level'));
                 })
                 ->toJson();
         }
     }
 
-    public function createTask(string $id){
+    // public function searchUser(Request $request){
 
-        $sessionId = auth()->user()->id;
-        $workspace = Workspace::find($id);
+    //     $q = $request->input('q');
 
-        return view('workspaces.workTasks.taskIndex', compact('workspace','sessionId'));
-    }
+    //     $users = User::where('email', 'like', '%'.$q.'%')->select('id', 'email')->get();
+
+    //     return response()->json($users);
+    // }
 }

@@ -9,7 +9,19 @@ class Workspace extends Model
 {
     use HasFactory;
 
-    public function users(){
-        return $this->belongsTo(User::class)->hasMany(Members::class)->hasMany(Tasks::class);
+    // public function users(){
+    //     return $this->belongsTo(User::class)->hasMany(Members::class)->hasMany(Tasks::class);
+    // }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function member(){
+        return $this->hasMany(Member::class);
+    }
+
+    public function task(){
+        return $this->hasMany(Task::class);
     }
 }
