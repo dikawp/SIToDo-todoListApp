@@ -33,9 +33,12 @@
                 <select id="category" name="category" class="form-select">
                     <option value="" selected>Add category</option>
                     @foreach ($category as $categories )
-                     <option value="{{ $categories->id }}">{{ $categories->categoryName }}</option>
+                    <option value="{{ $categories->id }}">{{ $categories->categoryName }}</option>
                     @endforeach
                 </select>
+                @if (count($category) == 0)
+                    <p class="text-danger">You haven't added any <a href="{{ route ('category') }}" class="text-info">category</a></p>
+                @endif
             </div>
             <button type="submit" class="btn btn-primary">Create new Task</button>
             <a href="{{ route ('persontask') }}" type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</a>
